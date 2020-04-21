@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Data;
 using System.Data.SqlClient;
 namespace newProj
@@ -14,6 +14,8 @@ namespace newProj
                 System.Console.WriteLine("Connected successfully");
             else 
                 System.Console.WriteLine("Oooops, some problems");
+            
+            
         }
     }
 }
