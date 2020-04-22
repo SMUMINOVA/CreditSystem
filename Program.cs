@@ -9,6 +9,7 @@ namespace FirstProject
         {
             UsersAccount acc = new UsersAccount();
             acc.Entry = new EntryToSystem();
+            acc.Form = new UsersForm();
             System.Console.WriteLine("Здравствуйте!");
             startRegistration:
             System.Console.WriteLine("Для начала работы вам необходимо войти в свой аккаунт, или, если у вас нет аккаунта, вы можете зарегистрироваться.");
@@ -20,7 +21,7 @@ namespace FirstProject
                     System.Console.Write("Фамилия: ");
                     acc.Surname = Console.ReadLine();
                     System.Console.Write("Номер паспорта: ");
-                    acc.DocumentNo = Console.ReadLine();
+                    acc.Form.DocumentNo = Console.ReadLine();
                     System.Console.Write("Номер телефона: ");
                     acc.Entry.Login = Console.ReadLine();
                     System.Console.Write("Пароль: ");
@@ -66,7 +67,7 @@ namespace FirstProject
                          Console.ForegroundColor = ConsoleColor.White;
                          goto startRegistration;
             }
-            acc.Form = new UsersForm();
+            work:
             System.Console.WriteLine("Добро пожаловать в кредитную систему банка Алиф!");
             System.Console.WriteLine("Выберите одно из следующих действий: ");
             System.Console.WriteLine("1. Подать заявку на кредит.\n 2. История заявок");
@@ -189,7 +190,16 @@ namespace FirstProject
                         System.Console.WriteLine("К сожалению, банк Алиф не может предоставить вам возможность взятия кредита при таких условиях.");
                     }
                     else{
-                        
+                        acc.Form.DateOfRequest = DateTime.Now;
+                        if(acc.Form.SendingDataToService() == 1){
+                            System.Console.WriteLine("Ваша заявка принята.");
+                        }
+                        else {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        System.Console.WriteLine("Произошла ошибка! Попробуйте снова");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        goto work;
+                        }
                     }
 
 

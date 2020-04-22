@@ -8,7 +8,6 @@ namespace FirstProject
         public EntryToSystem Entry{get; set;}
         public string Name{get;set;}
         public string Surname{get; set;}
-        public string DocumentNo{get; set;}
         public UsersForm Form{get;set;}
 
         public int Registration(){
