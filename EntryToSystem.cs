@@ -21,5 +21,25 @@ namespace FirstProject
             }
             else return 0;
         }
+        public int CheckPassword(){
+            const string conString = @"Data source=localhost; Initial catalog = Test; user id = sa;password=S1806Kh2111";
+            SqlConnection scon = new SqlConnection(conString);
+            scon.Open();
+            string checkSqlCommand = string.Format($"select password from Client where PhoneNumber ='{Login}' ");
+            SqlCommand command = new SqlCommand(checkSqlCommand, scon);
+            var result = command.ExecuteNonQuery();
+            SqlDataReader reader = command.ExecuteReader();
+            reader.Read();
+            string passwordCheck = (string)reader.GetValue("password");
+            reader.Close();
+            if (result > 0)
+            {
+                if(passwordCheck == Password)
+                    return 1;
+                    else return 0;
+            }
+            else return 0;
+                
+        }
     }
 }
