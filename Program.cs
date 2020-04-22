@@ -14,15 +14,15 @@ namespace FirstProject
             System.Console.WriteLine("1. Зарегистрироваться\n2. Войти в существующий аккаунт");
             switch(Console.ReadLine()){
                 case "1":{
-                    System.Console.WriteLine("Имя: ");
+                    System.Console.Write("Имя: ");
                     acc.Name = Console.ReadLine();
-                    System.Console.WriteLine("Фамилия: ");
+                    System.Console.Write("Фамилия: ");
                     acc.Surname = Console.ReadLine();
-                    System.Console.WriteLine("Номер паспорта: ");
+                    System.Console.Write("Номер паспорта: ");
                     acc.DocumentNo = Console.ReadLine();
-                    System.Console.WriteLine("Номер: ");
+                    System.Console.Write("Номер телефона: ");
                     acc.Entry.Login = Console.ReadLine();
-                    System.Console.WriteLine("Пароль: ");
+                    System.Console.Write("Пароль: ");
                     acc.Entry.Password = Console.ReadLine();
                     if(acc.Entry.CheckAccount() == 1){
                         System.Console.WriteLine("На этом номере уже зарегистрирован аккаунт. Попробуйте снова.");
