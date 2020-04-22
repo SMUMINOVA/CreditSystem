@@ -21,7 +21,8 @@ namespace FirstProject
                     System.Console.Write("Номер паспорта: ");
                     acc.DocumentNo = Console.ReadLine();
                     System.Console.Write("Номер телефона: ");
-                    acc.Entry.Login = Console.ReadLine();
+                    acc.Entry = new EntryToSystem();
+                    acc.Entry.Login = "+992939791918"; //Console.ReadLine();
                     System.Console.Write("Пароль: ");
                     acc.Entry.Password = Console.ReadLine();
                     if(acc.Entry.CheckAccount() == 1){
