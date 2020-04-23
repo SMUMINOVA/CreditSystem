@@ -22,6 +22,8 @@ namespace FirstProject
                     acc.Surname = Console.ReadLine();
                     System.Console.Write("Номер паспорта: ");
                     acc.Form.DocumentNo = Console.ReadLine();
+                    System.Console.Write("Дата рождения(гггг-мм-дд): ");
+                    acc.Form.Birthday = DateTime.Parse(Console.ReadLine());
                     System.Console.Write("Номер телефона: ");
                     acc.Entry.Login = Console.ReadLine();
                     System.Console.Write("Пароль: ");
@@ -47,7 +49,7 @@ namespace FirstProject
                 case "2":{
                     System.Console.Write("Номер телефона: ");
                     acc.Entry.Login = Console.ReadLine();
-                    System.Console.WriteLine("Пароль: ");
+                    System.Console.Write("Пароль: ");
                     acc.Entry.Password = Console.ReadLine();
                     if(acc.Entry.CheckPassword() == 1){
                         Console.ForegroundColor = ConsoleColor.Green;
@@ -120,15 +122,9 @@ namespace FirstProject
                          Console.ForegroundColor = ConsoleColor.White;
                         goto family;
                     }
-                    System.Console.Write("Возраст: ");
-                    acc.Form.Age = int.Parse(Console.ReadLine());
+                    acc.Form.Age = 2020 - acc.Form.Birthday.Year;
                     if(acc.Form.Age > 25 && acc.Form.Age <= 35) counter++;
-                    else if(acc.Form.Age <= 62) counter +=2;
-                    else{
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        System.Console.WriteLine("Произошла ошибка! Попробуйте снова");
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }                       
+                    else if(acc.Form.Age <= 62) counter +=2;                     
                     city: 
                     System.Console.WriteLine("Гражданство: \n1. Таджикистан\n2. Другая страна");
                     switch(Console.ReadLine()){
@@ -149,7 +145,7 @@ namespace FirstProject
                     else if(percent <= 150) counter += 3;
                     else if(percent <= 250) counter += 2;
                     else counter ++;
-                    System.Console.WriteLine("Кредитная истоия(количество закрытых кредитов): ");
+                    System.Console.WriteLine("Кредитная история(количество закрытых кредитов): ");
                     acc.Form.CreditsHistory = int.Parse(Console.ReadLine());
                     if(acc.Form.CreditsHistory >= 3) counter += 2;
                     else if(acc.Form.CreditsHistory > 0) counter ++;
@@ -184,10 +180,12 @@ namespace FirstProject
                         Console.ForegroundColor = ConsoleColor.White;
                         goto goal;
                     }
-                    System.Console.WriteLine("Срок кредита: ");
+                    System.Console.WriteLine("Срок кредита(в месяцах): ");
                     acc.Form.PeriodOfCredit = int.Parse(Console.ReadLine());
                     counter ++;
                     acc.Form.GetClientId();
+                    acc.Form.DateOfRequest = DateTime.Now;
+                    System.Console.WriteLine(acc.Form.DateOfRequest);
                     if(counter <= 11) acc.Form.RequestStatus = "Nonsuit";
                     else acc.Form.RequestStatus = "Formed";
                     int result = acc.Form.SendingDataToService();
@@ -195,7 +193,6 @@ namespace FirstProject
                         System.Console.WriteLine("К сожалению, банк Алиф не может предоставить вам возможность взятия кредита при таких условиях.");
                     }
                     else{
-                        acc.Form.DateOfRequest = DateTime.Now;
                         if( result == 1){
                             System.Console.WriteLine("Ваша заявка принята.");
                             goto Grafic;
@@ -231,7 +228,7 @@ namespace FirstProject
             if(acc.GetGraficInfo() == 0)System.Console.WriteLine("Ошибка в получении информации");
             goto end;
             admin:
-            
+
             end :
             System.Console.WriteLine("Заходите еще мы будем вам рады!");
         }

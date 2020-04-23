@@ -45,36 +45,41 @@ namespace FirstProject
                 else return 0;
         }
         public int CreateGrafic(){
-            string TablesName = Name + Form.RequestId;
             const string conString = @"Data source=localhost; Initial catalog = Test; user id = sa;password=S1806Kh2111";
             SqlConnection scon = new SqlConnection(conString);
             scon.Open();
-            string insertSqlCommand = string.Format($"Create table {TablesName}(id int identity primary key, Date DateTime, Summ double, Status nvarchar null) ");
+            string insertSqlCommand = string.Format($"create table {Name + Form.RequestId}(id int identity primary key, Date DateTime, Summ double, Status nvarchar null) ");
             SqlCommand command = new SqlCommand(insertSqlCommand, scon);
-            var result = command.ExecuteNonQuery();
-            if (result > 0)
-                {
-                    return 1;
-                }
-                else return 0;
+            try{
+                command.ExecuteNonQuery();
+                scon.Close();
+                return 1;
+            }
+            catch{
+                scon.Close();
+                return 0;
+            }
         }
         public int SetGraficInfo(){
             double summ = Form.CreditSumm/Form.PeriodOfCredit;
             const string conString = @"Data source=localhost; Initial catalog = Test; user id = sa;password=S1806Kh2111";
             SqlConnection scon = new SqlConnection(conString);
             scon.Open();
-            int some = 0;
+            int count = 0;
             for (int i = 0; i < Form.PeriodOfCredit; i++){
-                string insertSqlCommand = string.Format($"insert into {Name + Form.RequestId}([Date],[Summ], [Status]) Values('{Form.DateOfRequest.AddMonths(i)}','{summ}', 'Wait for payment')");
+                string insertSqlCommand = string.Format($"insert into {Name + Form.RequestId}([Date],[Summ], [Status]) Values('{Form.DateOfRequest.AddMonths(i+1)}','{summ}', 'Wait for payment')");
                 SqlCommand command = new SqlCommand(insertSqlCommand, scon);
-                var result = command.ExecuteNonQuery();
-                if (result > 0)
-                {
-                    some = 1;
+                try{
+                    command.ExecuteNonQuery();
+                    scon.Close();
+                    count = 1;
                 }
-                else some = 0;
-            }
-            return some;
+                catch{
+                    scon.Close();
+                    count = 0;
+                }
+        }
+        return count;
         }
         public int GetGraficInfo(){
                 const string conString = @"Data source=localhost; Initial catalog = Test; user id = sa;password=S1806Kh2111";
