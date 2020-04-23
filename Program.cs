@@ -186,6 +186,7 @@ namespace FirstProject
                     System.Console.WriteLine("Срок кредита: ");
                     acc.Form.PeriodOfCredit = int.Parse(Console.ReadLine());
                     counter ++;
+                    acc.Form.GetClientId();
                     if(counter <= 11) acc.Form.RequestStatus = "Nonsuit";
                     else acc.Form.RequestStatus = "Formed";
                     int result = acc.Form.SendingDataToService();
@@ -224,7 +225,11 @@ namespace FirstProject
 
             }
             Grafic:
-            
+            acc.Form.GetRequestId();
+            if(acc.CreateGrafic() == 1){
+                System.Console.WriteLine("Ваш кредит оформлен. Ниже предоставлен график выплаты кредита.");
+                
+            }
 
             end :
             System.Console.WriteLine("Пока");
