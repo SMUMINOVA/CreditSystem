@@ -3,12 +3,14 @@ using System.Data;
 using System.Data.SqlClient;
 namespace FirstProject
 {
-    public class UsersAccount
+    public class UsersAccount: AdminClass
     {
         public EntryToSystem Entry{get; set;}
         public string Name{get;set;}
         public string Surname{get; set;}
         public UsersForm Form{get;set;}
+
+        public string DocumentNo{get; set;}
 
         public int Registration(){
             const string conString = @"Data source=localhost; Initial catalog = Test; user id = sa;password=S1806Kh2111";
@@ -32,10 +34,7 @@ namespace FirstProject
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    string status;
-                    if(reader.GetValue("StatusOfRequest") == "Nonsuit") status = "Отказанно";
-                    else status = "Подтвержденно";
-                    System.Console.WriteLine($"Дата подачи заявки: {reader.GetValue("dateOf")}\nСрок кредита: {reader.GetValue("PeriodOfCredit")} месяцев, \nСумма кредита: {reader.GetValue("SumOfCredit")}, \nСтатус кредита: {status}");
+                    System.Console.WriteLine($"Дата подачи заявки: {reader.GetValue("dateOf")}\nСрок кредита: {reader.GetValue("PeriodOfCredit")} месяцев, \nСумма кредита: {reader.GetValue("SumOfCredit")}, \nСтатус кредита: {reader.GetValue("StatusOfRequest")}");
                 }
                 reader.Close();
                 var result = command.ExecuteNonQuery();

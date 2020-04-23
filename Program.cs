@@ -71,7 +71,7 @@ namespace FirstProject
             work:
             System.Console.WriteLine("Добро пожаловать в кредитную систему банка Алиф!");
             System.Console.WriteLine("Выберите одно из следующих действий: ");
-            System.Console.WriteLine("1. Подать заявку на кредит.\n2. История заявок\n4. Выход");
+            System.Console.WriteLine("1. Подать заявку на кредит.\n2. История заявок\n3. Выход");
             switch(Console.ReadLine()){
                 case "1": {
                     int counter = 0;
@@ -219,11 +219,6 @@ namespace FirstProject
                          System.Console.WriteLine("Произошла ошибка! Попробуйте снова");
                          Console.ForegroundColor = ConsoleColor.White;
                          goto end;
-
-
-
-
-
             }
             Grafic:
             acc.Form.GetRequestId();
@@ -233,11 +228,12 @@ namespace FirstProject
                         Console.ForegroundColor = ConsoleColor.White;
             }
             if (acc.SetGraficInfo() == 0) System.Console.WriteLine("Ошибка в создании графика");
-            
+            if(acc.GetGraficInfo() == 0)System.Console.WriteLine("Ошибка в получении информации");
+            goto end;
             admin:
-
+            
             end :
-            System.Console.WriteLine("Пока");
+            System.Console.WriteLine("Заходите еще мы будем вам рады!");
         }
     }
 }

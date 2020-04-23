@@ -16,11 +16,10 @@ namespace FirstProject
         public int Salary{get;set;}
         public int CreditSumm{get; set;}
         public int ClientId{get;set;}
-
-        public string DocumentNo{get; set;}
         public DateTime DateOfRequest{get;set;}
         public string RequestStatus{get;set;}
         public string RequestId{get;set;}
+        //получение клиентского id для дальнейших действий
         public void GetClientId(){
             const string conString = @"Data source=localhost; Initial catalog = Test; user id = sa;password=S1806Kh2111";
             SqlConnection scon = new SqlConnection(conString);
@@ -29,8 +28,9 @@ namespace FirstProject
             SqlCommand command = new SqlCommand(checkSqlCommand, scon);
             var result = command.ExecuteNonQuery();
             SqlDataReader reader = command.ExecuteReader();
-            reader.Read();
+            while(reader.Read()){
             ClientId = (int)reader.GetValue("password");
+            }
             reader.Close();
         }
         public void GetRequestId(){
@@ -39,10 +39,11 @@ namespace FirstProject
             scon.Open();
             string checkSqlCommand = string.Format($"select Id from Request where PhoneNumber ='{Login}' ");
             SqlCommand command = new SqlCommand(checkSqlCommand, scon);
-            var result = command.ExecuteNonQuery();
+            //var result = command.ExecuteNonQuery();
             SqlDataReader reader = command.ExecuteReader();
-            reader.Read();
+            while(reader.Read()){
             RequestId = (string)reader.GetValue("password");
+            }
             reader.Close();
         }
         public int SendingDataToService(){
