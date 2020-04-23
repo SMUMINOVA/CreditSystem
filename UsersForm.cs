@@ -19,6 +19,7 @@ namespace FirstProject
 
         public string DocumentNo{get; set;}
         public DateTime DateOfRequest{get;set;}
+        public string RequestStatus{get;set;}
         public void GetId(){
             const string conString = @"Data source=localhost; Initial catalog = Test; user id = sa;password=S1806Kh2111";
             SqlConnection scon = new SqlConnection(conString);
@@ -35,7 +36,7 @@ namespace FirstProject
             const string conString = @"Data source=localhost; Initial catalog = Test; user id = sa;password=S1806Kh2111";
             SqlConnection scon = new SqlConnection(conString);
             scon.Open();
-            string insertSqlCommand = string.Format($"insert into Request([Age],[CityZone],[Client_Id],[CreditHistory], [dateOf], [DocumentNoOfClient], [FamilyStatus], [Gender], [GoalOfCredit], [NumberOfOutstandingCredits], [PeriodOfCredit], [SumOfCredit]) Values('{Age}','{CityZone}', '{ClientId}', '{CreditsHistory}', '{DateOfRequest}','{DocumentNo}', '{FamilyStatus}', '{Gender}', '{GoalOfCredit}', '{OutstandingCredits}', '{PeriodOfCredit}', '{CreditSumm}')");
+            string insertSqlCommand = string.Format($"insert into Request([Age],[CityZone],[Client_Id],[CreditHistory], [dateOf], [DocumentNoOfClient], [FamilyStatus], [Gender], [GoalOfCredit], [NumberOfOutstandingCredits], [PeriodOfCredit], [SumOfCredit], [StatusOfRequest]) Values('{Age}','{CityZone}', '{ClientId}', '{CreditsHistory}', '{DateOfRequest}','{DocumentNo}', '{FamilyStatus}', '{Gender}', '{GoalOfCredit}', '{OutstandingCredits}', '{PeriodOfCredit}', '{CreditSumm}', '{RequestStatus}')");
             SqlCommand command = new SqlCommand(insertSqlCommand, scon);
             var result = command.ExecuteNonQuery();
             if (result > 0)

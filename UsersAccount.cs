@@ -14,7 +14,7 @@ namespace FirstProject
             const string conString = @"Data source=localhost; Initial catalog = Test; user id = sa;password=S1806Kh2111";
             SqlConnection scon = new SqlConnection(conString);
             scon.Open();
-            string insertSqlCommand = string.Format($"insert into Client([Name],[Surname],[DocumentNo],[PhoneNumber], [password]) Values('{Name}','{Surname}', '{DocumentNo}', '{Entry.Login}', '{Entry.Password}')");
+            string insertSqlCommand = string.Format($"insert into Client([Name],[Surname],[DocumentNo],[PhoneNumber], [password]) Values('{Name}','{Surname}', '{Form.DocumentNo}', '{Entry.Login}', '{Entry.Password}')");
             SqlCommand command = new SqlCommand(insertSqlCommand, scon);
             var result = command.ExecuteNonQuery();
             if (result > 0)
@@ -22,6 +22,28 @@ namespace FirstProject
                 return 1;
             }
             else return 0;
+        }
+        public int RequestHistory(){
+                const string conString = @"Data source=localhost; Initial catalog = Test; user id = sa;password=S1806Kh2111";
+                SqlConnection scon = new SqlConnection(conString);
+                scon.Open();
+                string commandText = $"Select * from Request where Client_Id = {Form.ClientId}";
+                SqlCommand command = new SqlCommand(commandText, scon);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    string status;
+                    if(reader.GetValue("StatusOfRequest") == "Nonsuit") status = "Отказанно";
+                    else status = "Подтвержденно";
+                    System.Console.WriteLine($"Дата подачи заявки: {reader.GetValue("dateOf")}\nСрок кредита: {reader.GetValue("PeriodOfCredit")} месяцев, \nСумма кредита: {reader.GetValue("SumOfCredit")}, \nСтатус кредита: {status}");
+                }
+                reader.Close();
+                var result = command.ExecuteNonQuery();
+                if (result > 0)
+                {
+                    return 1;
+                }
+                else return 0;
         }
     }
 }

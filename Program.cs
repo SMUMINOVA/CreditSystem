@@ -70,7 +70,7 @@ namespace FirstProject
             work:
             System.Console.WriteLine("Добро пожаловать в кредитную систему банка Алиф!");
             System.Console.WriteLine("Выберите одно из следующих действий: ");
-            System.Console.WriteLine("1. Подать заявку на кредит.\n 2. История заявок");
+            System.Console.WriteLine("1. Подать заявку на кредит.\n2. История заявок\n4. Выход");
             switch(Console.ReadLine()){
                 case "1": {
                     int counter = 0;
@@ -186,13 +186,17 @@ namespace FirstProject
                     System.Console.WriteLine("Срок кредита: ");
                     acc.Form.PeriodOfCredit = int.Parse(Console.ReadLine());
                     counter ++;
+                    if(counter <= 11) acc.Form.RequestStatus = "Nonsuit";
+                    else acc.Form.RequestStatus = "Formed";
+                    int result = acc.Form.SendingDataToService();
                     if(counter <= 11){
                         System.Console.WriteLine("К сожалению, банк Алиф не может предоставить вам возможность взятия кредита при таких условиях.");
                     }
                     else{
                         acc.Form.DateOfRequest = DateTime.Now;
-                        if(acc.Form.SendingDataToService() == 1){
+                        if( result == 1){
                             System.Console.WriteLine("Ваша заявка принята.");
+                            goto Grafic;
                         }
                         else {
                         Console.ForegroundColor = ConsoleColor.Red;
@@ -204,19 +208,23 @@ namespace FirstProject
 
 
                 }; break;
-
-
+                case "2": {
+                    if(acc.RequestHistory() == 0)
+                    System.Console.WriteLine("У вас нет истории заявок");
+                };break;
+                case "3": goto end;
+                default: Console.ForegroundColor = ConsoleColor.Red;
+                         System.Console.WriteLine("Произошла ошибка! Попробуйте снова");
+                         Console.ForegroundColor = ConsoleColor.White;
+                         goto end;
 
 
 
 
 
             }
-
-
-
-
-
+            Grafic:
+            
 
             end :
             System.Console.WriteLine("Пока");
