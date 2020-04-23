@@ -13,7 +13,7 @@ namespace FirstProject
             System.Console.WriteLine("Здравствуйте!");
             startRegistration:
             System.Console.WriteLine("Для начала работы вам необходимо войти в свой аккаунт, или, если у вас нет аккаунта, вы можете зарегистрироваться.");
-            System.Console.WriteLine("1. Зарегистрироваться\n2. Войти в существующий аккаунт\n3. Выход");
+            System.Console.WriteLine("1. Зарегистрироваться\n2. Войти в существующий аккаунт\n3. Войти, как администратор\n4. Выход");
             switch(Console.ReadLine()){
                 case "1":{
                     System.Console.Write("Имя: ");
@@ -61,7 +61,8 @@ namespace FirstProject
                             goto startRegistration;
                         }
                 }; break;
-                case "3": goto end;
+                case "3": goto admin;
+                case "4": goto end;
                 default: Console.ForegroundColor = ConsoleColor.Red;
                          System.Console.WriteLine("Произошла ошибка! Попробуйте снова");
                          Console.ForegroundColor = ConsoleColor.White;
@@ -227,9 +228,13 @@ namespace FirstProject
             Grafic:
             acc.Form.GetRequestId();
             if(acc.CreateGrafic() == 1){
-                System.Console.WriteLine("Ваш кредит оформлен. Ниже предоставлен график выплаты кредита.");
-                
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        System.Console.WriteLine("Ваш кредит успешно оформлен");
+                        Console.ForegroundColor = ConsoleColor.White;
             }
+            if (acc.SetGraficInfo() == 0) System.Console.WriteLine("Ошибка в создании графика");
+            
+            admin:
 
             end :
             System.Console.WriteLine("Пока");
