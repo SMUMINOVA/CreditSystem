@@ -39,8 +39,6 @@ namespace FirstProject
             while(reader.Read()){
                 passwordCheck = (string)reader.GetValue("Password");
             }
-            //reader.Close();
-                System.Console.WriteLine(passwordCheck);
                 if(passwordCheck == Password){
                     string getInfo = string.Format($"select * from Client where PhoneNumber ='{Login}'");
                     while (reader.Read())

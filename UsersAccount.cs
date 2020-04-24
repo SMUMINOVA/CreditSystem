@@ -28,28 +28,26 @@ namespace FirstProject
                 const string conString = @"Data source=localhost; Initial catalog = Test; user id = sa;password=S1806Kh2111";
                 SqlConnection scon = new SqlConnection(conString);
                 scon.Open();
+                int idReq = 0;
                 string commandText = $"Select * from Request where Client_Id = {Form.ClientId}";
                 SqlCommand command = new SqlCommand(commandText, scon);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
                     System.Console.WriteLine($"Дата подачи заявки: {reader.GetValue("dateOf")}\nСрок кредита: {reader.GetValue("PeriodOfCredit")} месяцев, \nСумма кредита: {reader.GetValue("SumOfCredit")}, \nСтатус кредита: {reader.GetValue("StatusOfRequest")}");
+                    idReq = (int)reader.GetValue("Id");
                 }
                 reader.Close();
-                var result = command.ExecuteNonQuery();
-                if (result > 0)
-                {
-                    return 1;
-                }
-                else return 0;
+                if(idReq == 0)
+                   return 0;
+                else return 1;
         }
         public int CreateGrafic(){
             const string conString = @"Data source=localhost; Initial catalog = Test; user id = sa;password=S1806Kh2111";
             SqlConnection scon = new SqlConnection(conString);
             scon.Open();
             string name = Name + Form.RequestId;
-            System.Console.WriteLine(name);
-            string insertSqlCommand = string.Format($"if not exists (select * from sysobjects where name = 'cars' and xtype = 'U') create table {name}(id int identity primary key, Date DateTime, Summ float, Status nvarchar null) ");
+            string insertSqlCommand = string.Format($"create table {name}(id int identity primary key, Date DateTime, Summ float, Status nvarchar(30) null) ");
             SqlCommand command = new SqlCommand(insertSqlCommand, scon);
             try{
                 command.ExecuteNonQuery();
@@ -68,7 +66,7 @@ namespace FirstProject
             scon.Open();
             //int count = 0;
             for (int i = 0; i < Form.PeriodOfCredit; i++){
-                string insertSqlCommand = string.Format($"insert into {Name + Form.RequestId}([Date],[Summ], [Status]) Values('{Form.DateOfRequest.AddMonths(i+1)}','{summ}', 'Wait for payment')");
+                string insertSqlCommand = string.Format($"insert into {Name + Form.RequestId}([Date],[Summ], [Status]) Values('{Form.DateOfRequest.AddMonths(i+1)}',{summ}, 'Wait for payment')");
                 SqlCommand command = new SqlCommand(insertSqlCommand, scon);
                 command.ExecuteNonQuery();
                 //try{
@@ -86,20 +84,21 @@ namespace FirstProject
                 const string conString = @"Data source=localhost; Initial catalog = Test; user id = sa;password=S1806Kh2111";
                 SqlConnection scon = new SqlConnection(conString);
                 scon.Open();
+                int gett = 0;
                 string commandText = $"Select * from {Name + Form.RequestId}";
                 SqlCommand command = new SqlCommand(commandText, scon);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
                     System.Console.WriteLine($"Дата оплаты: {reader.GetValue("Date")}\nСумма: {reader.GetValue("Summ")}\nСтатус: {reader.GetValue("Status")}");
+                    gett = (int)reader.GetValue("Summ");
                 }
                 reader.Close();
-                var result = command.ExecuteNonQuery();
-                if (result > 0)
+                if (gett == 0)
                 {
-                    return 1;
+                    return 0;
                 }
-                else return 0;
+                else return 1;
         }
     }
 }

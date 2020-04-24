@@ -204,10 +204,9 @@ namespace FirstProject
                         goto work;
                         }
                     }
-
-
                 }; break;
                 case "2": {
+                    acc.Form.GetClientId();
                     if(acc.RequestHistory() == 0)
                     System.Console.WriteLine("У вас нет истории заявок");
                     goto work;
