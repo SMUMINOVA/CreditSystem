@@ -129,8 +129,11 @@ namespace FirstProject
                     city: 
                     System.Console.WriteLine("Гражданство: \n1. Таджикистан\n2. Другая страна");
                     switch(Console.ReadLine()){
-                        case "1": counter++; break;
-                        case "2": ; break;
+                        case "1": {
+                            acc.Form.CityZone = "Tajikistan";
+                            counter++;
+                        }; break;
+                        case "2": acc.Form.CityZone = "other"; break;
                         default:
                         Console.ForegroundColor = ConsoleColor.Red;
                         System.Console.WriteLine("Произошла ошибка! Попробуйте снова");
@@ -184,7 +187,8 @@ namespace FirstProject
                     System.Console.WriteLine("Срок кредита(в месяцах): ");
                     acc.Form.PeriodOfCredit = int.Parse(Console.ReadLine());
                     counter ++;
-                    acc.Form.GetClientId();
+                    acc.Form.GetClientId(); 
+                    System.Console.WriteLine(acc.Form.ClientId);
                     acc.Form.DateOfRequest = DateTime.Now;
                     if(counter <= 11) acc.Form.RequestStatus = "Nonsuit";
                     else acc.Form.RequestStatus = "Viewing";

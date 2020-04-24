@@ -24,12 +24,11 @@ namespace FirstProject
             const string conString = @"Data source=localhost; Initial catalog = Test; user id = sa;password=S1806Kh2111";
             SqlConnection scon = new SqlConnection(conString);
             scon.Open();
-            string checkSqlCommand = string.Format($"select Id from Client where PhoneNumber ='{Login}' ");
+            string checkSqlCommand = string.Format($"select * from Client where PhoneNumber = '{Login}'");
             SqlCommand command = new SqlCommand(checkSqlCommand, scon);
-            var result = command.ExecuteNonQuery();
             SqlDataReader reader = command.ExecuteReader();
             while(reader.Read()){
-            ClientId = (int)reader.GetValue("password");
+                ClientId = (int)reader.GetValue("Id");
             }
             reader.Close();
         }
