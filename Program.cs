@@ -70,8 +70,8 @@ namespace FirstProject
                          Console.ForegroundColor = ConsoleColor.White;
                          goto startRegistration;
             }
-            work:
             System.Console.WriteLine("Добро пожаловать в кредитную систему банка Алиф!");
+            work:
             System.Console.WriteLine("Выберите одно из следующих действий: ");
             System.Console.WriteLine("1. Подать заявку на кредит.\n2. История заявок\n3. Выход");
             switch(Console.ReadLine()){
@@ -216,7 +216,7 @@ namespace FirstProject
                 default: Console.ForegroundColor = ConsoleColor.Red;
                          System.Console.WriteLine("Произошла ошибка! Попробуйте снова");
                          Console.ForegroundColor = ConsoleColor.White;
-                         goto end;
+                         goto work;
             }
             Grafic:
             acc.Form.GetRequestId();
@@ -224,8 +224,20 @@ namespace FirstProject
                         Console.ForegroundColor = ConsoleColor.Green;
                         System.Console.WriteLine("Ваш кредит успешно оформлен");
                         Console.ForegroundColor = ConsoleColor.White;
+                        menu:
+                        System.Console.WriteLine("1.Главное меню.\n2.Выход");
+                        switch(Console.ReadLine()){
+                            case "1": goto work;
+                            case "2": goto end;
+                            default: 
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            System.Console.WriteLine("Произошла ошибка! Попробуйте снова");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            goto menu;
+                        }
+
             }
-            if (acc.SetGraficInfo() == 0) System.Console.WriteLine("Ошибка в создании графика");
+            //if (acc.SetGraficInfo() == 0) System.Console.WriteLine("Ошибка в создании графика");
             if(acc.GetGraficInfo() == 0)System.Console.WriteLine("Ошибка в получении информации");
             goto end;
             admin:

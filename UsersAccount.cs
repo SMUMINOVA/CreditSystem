@@ -61,26 +61,26 @@ namespace FirstProject
                 return 0;
             }
         }
-        public int SetGraficInfo(){
+        public void SetGraficInfo(){
             double summ = Form.CreditSumm/Form.PeriodOfCredit;
             const string conString = @"Data source=localhost; Initial catalog = Test; user id = sa;password=S1806Kh2111";
             SqlConnection scon = new SqlConnection(conString);
             scon.Open();
-            int count = 0;
+            //int count = 0;
             for (int i = 0; i < Form.PeriodOfCredit; i++){
                 string insertSqlCommand = string.Format($"insert into {Name + Form.RequestId}([Date],[Summ], [Status]) Values('{Form.DateOfRequest.AddMonths(i+1)}','{summ}', 'Wait for payment')");
                 SqlCommand command = new SqlCommand(insertSqlCommand, scon);
-                try{
-                    command.ExecuteNonQuery();
-                    scon.Close();
-                    count = 1;
-                }
-                catch{
-                    scon.Close();
-                    count = 0;
-                }
+                command.ExecuteNonQuery();
+                //try{
+                //    scon.Close();
+                //    count = 1;
+                //}
+                //catch{
+                //    scon.Close();
+                //    count = 0;
+                //}
         }
-        return count;
+        //return count;
         }
         public int GetGraficInfo(){
                 const string conString = @"Data source=localhost; Initial catalog = Test; user id = sa;password=S1806Kh2111";
