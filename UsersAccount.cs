@@ -8,7 +8,6 @@ namespace FirstProject
         public EntryToSystem Entry{get; set;}
         public string Name{get;set;}
         public string Surname{get; set;}
-        public UsersForm Form{get;set;}
 
         public string DocumentNo{get; set;}
 
@@ -48,7 +47,9 @@ namespace FirstProject
             const string conString = @"Data source=localhost; Initial catalog = Test; user id = sa;password=S1806Kh2111";
             SqlConnection scon = new SqlConnection(conString);
             scon.Open();
-            string insertSqlCommand = string.Format($"create table {Name + Form.RequestId}(id int identity primary key, Date DateTime, Summ double, Status nvarchar null) ");
+            string name = Name + Form.RequestId;
+            System.Console.WriteLine(name);
+            string insertSqlCommand = string.Format($"if not exists (select * from sysobjects where name = 'cars' and xtype = 'U') create table {name}(id int identity primary key, Date DateTime, Summ float, Status nvarchar null) ");
             SqlCommand command = new SqlCommand(insertSqlCommand, scon);
             try{
                 command.ExecuteNonQuery();

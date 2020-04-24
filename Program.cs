@@ -210,7 +210,8 @@ namespace FirstProject
                 case "2": {
                     if(acc.RequestHistory() == 0)
                     System.Console.WriteLine("У вас нет истории заявок");
-                };break;
+                    goto work;
+                }
                 case "3": goto end;
                 default: Console.ForegroundColor = ConsoleColor.Red;
                          System.Console.WriteLine("Произошла ошибка! Попробуйте снова");
@@ -228,9 +229,28 @@ namespace FirstProject
             if(acc.GetGraficInfo() == 0)System.Console.WriteLine("Ошибка в получении информации");
             goto end;
             admin:
-
+            System.Console.Write("Пароль: ");
+            string check = Console.ReadLine();
+            if(check != acc.Entry.AdminPassword) goto startRegistration;
+            else {
+                Console.ForegroundColor = ConsoleColor.Green;
+                System.Console.WriteLine("Вы успешно вошли в систему");
+                Console.ForegroundColor = ConsoleColor.White;
+                adminwork:
+                System.Console.WriteLine("1.Информации о клиентах.\n2.Информация о запросах.\n3.История запросов клиента.\n4.Выход");
+                switch(Console.ReadLine()){
+                    case "1": acc.GetClientsInfo(); goto adminwork;
+                    case "2": acc.GetRequestsInfo(); goto adminwork;
+                    case "3": {
+                        System.Console.Write("Id клиента: ");
+                        acc.Form.ClientId = int.Parse(Console.ReadLine());
+                        acc.GetRequestById();
+                    }; goto adminwork;
+                    case "4": goto end;
+                }
+            }
             end :
-            System.Console.WriteLine("Заходите еще мы будем вам рады!");
+            System.Console.WriteLine("Заходите еще мы вам всегда рады!");
         }
     }
 }

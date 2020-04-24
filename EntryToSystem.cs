@@ -8,7 +8,7 @@ namespace FirstProject
         public DateTime Birthday{get;set;}
         public string Login{get; set;}
         public string Password{get;set;}
-        public const string AdminPassword = "1234";
+        public string AdminPassword {get;} = "1234";
         //проверка на наличие аккаунта у данного номера
         public int CheckAccount(){
             const string conString = @"Data source=localhost; Initial catalog = Test; user id = sa;password=S1806Kh2111";
