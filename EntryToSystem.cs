@@ -42,7 +42,7 @@ namespace FirstProject
                 Birthday = (DateTime)reader.GetValue("BirthDate");
                 Name = (string)reader.GetValue("Name");
                 Surname = (string)reader.GetValue("Surname");
-                Form.ClientId = int.Parse(reader.GetValue("Id").ToString());
+                Form.ClientId = int.Parse(reader.GetValue(0).ToString());
             }
             reader.Close();
                 if(passwordCheck == Password){

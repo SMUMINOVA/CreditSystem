@@ -269,7 +269,7 @@ namespace FirstProject
                 }
             }
             end :
-            System.Console.WriteLine("Заходите еще мы вам всегда рады!");
+            System.Console.WriteLine("Заходите еще мы всегда будем рады вам!");
         }
     }
 }

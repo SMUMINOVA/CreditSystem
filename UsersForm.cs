@@ -28,7 +28,7 @@ namespace FirstProject
             SqlCommand command = new SqlCommand(checkSqlCommand, scon);
             SqlDataReader reader = command.ExecuteReader();
             while(reader.Read()){
-                ClientId = (int)reader.GetValue("Id");
+                ClientId = (int)reader.GetValue(0);
             }
             reader.Close();
         }
