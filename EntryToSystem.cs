@@ -42,17 +42,10 @@ namespace FirstProject
                 Birthday = (DateTime)reader.GetValue("BirthDate");
                 Name = (string)reader.GetValue("Name");
                 Surname = (string)reader.GetValue("Surname");
-                Form.ClientId = (int)reader.GetValue("Id");
+                Form.ClientId = int.Parse(reader.GetValue("Id").ToString());
             }
             reader.Close();
                 if(passwordCheck == Password){
-                    //string getInfo = string.Format($"select * from Client where PhoneNumber ='{Login}'");
-                    //SqlCommand commandNew = new SqlCommand(checkSqlCommand, scon);
-                    //SqlDataReader readerNew = command.ExecuteReader();
-                    //while (readerNew.Read())
-                    //{
-                    //}
-                    //readerNew.Close();
                     return 1;
                 }
                 else return 0;

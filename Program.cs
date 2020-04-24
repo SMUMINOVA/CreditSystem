@@ -187,11 +187,10 @@ namespace FirstProject
                     System.Console.WriteLine("Срок кредита(в месяцах): ");
                     acc.Form.PeriodOfCredit = int.Parse(Console.ReadLine());
                     counter ++;
-                    acc.Form.GetClientId(); 
-                    System.Console.WriteLine(acc.Form.ClientId);
+                    acc.Form.GetClientId();
                     acc.Form.DateOfRequest = DateTime.Now;
                     if(counter <= 11) acc.Form.RequestStatus = "Nonsuit";
-                    else acc.Form.RequestStatus = "Viewing";
+                    else acc.Form.RequestStatus = "Approved";
                     int result = acc.Form.SendingDataToService();
                     if(counter <= 11){
                         System.Console.WriteLine("К сожалению, банк Алиф не может предоставить вам возможность взятия кредита при таких условиях.");
