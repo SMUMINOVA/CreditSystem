@@ -38,21 +38,21 @@ namespace FirstProject
             string passwordCheck = "";
             while(reader.Read()){
                 passwordCheck = (string)reader.GetValue("Password");
+                DocumentNo = (string)reader.GetValue("DocumentNo");
+                Birthday = (DateTime)reader.GetValue("BirthDate");
+                Name = (string)reader.GetValue("Name");
+                Surname = (string)reader.GetValue("Surname");
+                Form.ClientId = (int)reader.GetValue("Id");
             }
             reader.Close();
                 if(passwordCheck == Password){
-                    string getInfo = string.Format($"select * from Client where PhoneNumber ='{Login}'");
-                    SqlCommand commandNew = new SqlCommand(checkSqlCommand, scon);
-                    SqlDataReader readerNew = command.ExecuteReader();
-                    while (readerNew.Read())
-                    {
-                        //Birthday = (DateTime)readerNew.GetValue("BirthDate");
-                        DocumentNo = (string)readerNew.GetValue("DocumentNo");
-                        Name = (string)readerNew.GetValue("Name");
-                        Surname = (string)readerNew.GetValue("Surname");
-                        Form.ClientId = (int)readerNew.GetValue("Id");
-                    }
-                    readerNew.Close();
+                    //string getInfo = string.Format($"select * from Client where PhoneNumber ='{Login}'");
+                    //SqlCommand commandNew = new SqlCommand(checkSqlCommand, scon);
+                    //SqlDataReader readerNew = command.ExecuteReader();
+                    //while (readerNew.Read())
+                    //{
+                    //}
+                    //readerNew.Close();
                     return 1;
                 }
                 else return 0;
