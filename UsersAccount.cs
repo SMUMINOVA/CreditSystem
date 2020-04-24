@@ -15,7 +15,7 @@ namespace FirstProject
             const string conString = @"Data source=localhost; Initial catalog = Test; user id = sa;password=S1806Kh2111";
             SqlConnection scon = new SqlConnection(conString);
             scon.Open();
-            string insertSqlCommand = string.Format($"insert into Client([Name],[Surname],[DocumentNo],[PhoneNumber], [password]) Values('{Name}','{Surname}', '{Form.DocumentNo}', '{Entry.Login}', '{Entry.Password}')");
+            string insertSqlCommand = string.Format($"insert into Client([Name],[Surname],[DocumentNo],[PhoneNumber], [password], [BirthDate]) Values('{Name}','{Surname}', '{Form.DocumentNo}', '{Entry.Login}', '{Entry.Password}', '{Form.Birthday}')");
             SqlCommand command = new SqlCommand(insertSqlCommand, scon);
             var result = command.ExecuteNonQuery();
             if (result > 0)
@@ -64,41 +64,24 @@ namespace FirstProject
             const string conString = @"Data source=localhost; Initial catalog = Test; user id = sa;password=S1806Kh2111";
             SqlConnection scon = new SqlConnection(conString);
             scon.Open();
-            //int count = 0;
             for (int i = 0; i < Form.PeriodOfCredit; i++){
                 string insertSqlCommand = string.Format($"insert into {Name + Form.RequestId}([Date],[Summ], [Status]) Values('{Form.DateOfRequest.AddMonths(i+1)}',{summ}, 'Wait for payment')");
                 SqlCommand command = new SqlCommand(insertSqlCommand, scon);
                 command.ExecuteNonQuery();
-                //try{
-                //    scon.Close();
-                //    count = 1;
-                //}
-                //catch{
-                //    scon.Close();
-                //    count = 0;
-                //}
         }
-        //return count;
         }
-        public int GetGraficInfo(){
+        public void GetGraficInfo(){
                 const string conString = @"Data source=localhost; Initial catalog = Test; user id = sa;password=S1806Kh2111";
                 SqlConnection scon = new SqlConnection(conString);
                 scon.Open();
-                int gett = 0;
                 string commandText = $"Select * from {Name + Form.RequestId}";
                 SqlCommand command = new SqlCommand(commandText, scon);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
                     System.Console.WriteLine($"Дата оплаты: {reader.GetValue("Date")}\nСумма: {reader.GetValue("Summ")}\nСтатус: {reader.GetValue("Status")}");
-                    gett = (int)reader.GetValue("Summ");
                 }
                 reader.Close();
-                if (gett == 0)
-                {
-                    return 0;
-                }
-                else return 1;
         }
     }
 }

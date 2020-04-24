@@ -31,7 +31,7 @@ namespace FirstProject
                     if(acc.Entry.CheckAccount() == 1){
                         System.Console.WriteLine("На этом номере уже зарегистрирован аккаунт. Попробуйте снова.");
                         goto startRegistration;
-                    }
+                    } 
                     else{
                         if(acc.Registration() == 1){
                             Console.ForegroundColor = ConsoleColor.Green;
@@ -40,7 +40,7 @@ namespace FirstProject
                         }
                         else {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            System.Console.WriteLine("Произошла ошибка! Попробуйте снова");
+                            System.Console.WriteLine("Неправильный логин или пароль! Попробуйте снова");
                             Console.ForegroundColor = ConsoleColor.White;
                             goto startRegistration;
                         }
@@ -55,6 +55,7 @@ namespace FirstProject
                         Console.ForegroundColor = ConsoleColor.Green;
                         System.Console.WriteLine("Вы успешно вошли в систему");
                         Console.ForegroundColor = ConsoleColor.White;
+                        acc.Form.GetClientId();
                     }
                     else {
                             Console.ForegroundColor = ConsoleColor.Red;
@@ -185,9 +186,8 @@ namespace FirstProject
                     counter ++;
                     acc.Form.GetClientId();
                     acc.Form.DateOfRequest = DateTime.Now;
-                    System.Console.WriteLine(acc.Form.DateOfRequest);
                     if(counter <= 11) acc.Form.RequestStatus = "Nonsuit";
-                    else acc.Form.RequestStatus = "Formed";
+                    else acc.Form.RequestStatus = "Viewing";
                     int result = acc.Form.SendingDataToService();
                     if(counter <= 11){
                         System.Console.WriteLine("К сожалению, банк Алиф не может предоставить вам возможность взятия кредита при таких условиях.");
@@ -223,6 +223,10 @@ namespace FirstProject
                         Console.ForegroundColor = ConsoleColor.Green;
                         System.Console.WriteLine("Ваш кредит успешно оформлен");
                         Console.ForegroundColor = ConsoleColor.White;
+                        acc.SetGraficInfo();
+                        acc.GetGraficInfo();
+                        acc.Form.RequestStatus = "Approved";
+
                         menu:
                         System.Console.WriteLine("1.Главное меню.\n2.Выход");
                         switch(Console.ReadLine()){
@@ -236,9 +240,10 @@ namespace FirstProject
                         }
 
             }
-            //if (acc.SetGraficInfo() == 0) System.Console.WriteLine("Ошибка в создании графика");
-            if(acc.GetGraficInfo() == 0)System.Console.WriteLine("Ошибка в получении информации");
-            goto end;
+            Console.ForegroundColor = ConsoleColor.Red;
+            System.Console.WriteLine("Произошла ошибка! Попробуйте снова");
+            Console.ForegroundColor = ConsoleColor.White;
+            goto work;
             admin:
             System.Console.Write("Пароль: ");
             string check = Console.ReadLine();
